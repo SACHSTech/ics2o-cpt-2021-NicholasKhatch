@@ -28,6 +28,8 @@ player_image.set_colorkey(BLACK)
 customer_image = pygame.image.load("Image168www.png").convert()
 customer_image.set_colorkey(BLACK)
 
+customer_text_1 = pygame.image.load("text placeholder.jpg").convert()
+customer_text_1.set_colorkey(BLACK)
 #customer_image = pygame.image.load()
  
 #Loop until the user clicks the close button.
@@ -54,7 +56,7 @@ while not done:
     # --- Main event loop
     for event in pygame.event.get(): # User did something
         if event.type == pygame.QUIT: # If user clicked close
-            done = True # Flag that we are done so we exit this loop
+            done = True
   
     # --- Game logic should go here
     player_pos = pygame.mouse.get_pos()
@@ -65,6 +67,7 @@ while not done:
     if customer_x < 230:
       customer_x_velocity = customer_x_velocity * 0
       print("colliding")
+      print(customer_x_velocity)
 
     customer_x = customer_x + customer_x_velocity
 
@@ -82,6 +85,10 @@ while not done:
 
     #importing hand image
     screen.blit(player_image, [player_x, player_y])
+
+    #outputs text to screen
+    if customer_x_velocity == 0:
+      screen.blit(customer_text_1, [50,70])
 
     #pygame.draw.rect(screen, GREEN, (collision_x, collision_y, collision_width, collision_height))
 
