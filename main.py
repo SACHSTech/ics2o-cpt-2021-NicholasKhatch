@@ -6,13 +6,16 @@ import time
 # Define some colors
 BLACK    = (   0,   0,   0)
 WHITE    = ( 255, 255, 255)
+
 RED      = ( 255,   0,   0)
+dark_red = (156, 6, 6)
+dark_red_2 = (105, 6, 6)
 
 BLUE     = (0, 0, 255)
-Dark_Blue = (7, 9, 115)
+dark_blue = (7, 9, 115)
 
 GREEN    = (0, 179, 39)
-Dark_Green = (0, 102, 22)
+dark_green = (0, 102, 22)
 
 pygame.init()
   
@@ -110,9 +113,16 @@ correct_counter = 0
 
 #keeping track of player lives
 player_lives = 3
+lives_lost = False
+
+#toggle if the player has to restart the game
+restart_game = False
 
 #start menu toggle
 start_menu = True
+
+#toggle for getting a new part
+new_part = True
 
 #Loop until the user clicks the close button.
 done = False
@@ -133,11 +143,6 @@ collision_y = 0
 collision_width = 1
 collision_height = 500
 
-#generating random part
-for i in range(1):
-  print(random.randint(0,14))
-  random_part = (random.randint(0,14))
-
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
@@ -155,107 +160,132 @@ while not done:
     player_x = player_pos[0] - 300
     player_y = player_pos[1] - 40
 
+    if new_part == True:
+      gpu_selected = False
+      cpu_selected = False
+      pc_cooler_selected = False
+      power_selected = False
+      ram_selected = False
+      gpu_required = False
+      cpu_required = False
+      pc_cooler_required = False
+      power_required = False
+      ram_required = False
+      gpu_clicked = False
+      cpu_clicked = False
+      pc_cooler_clicked = False
+      power_clicked = False
+      ram_clicked = False
+      random_part = (random.randint(0,14))
+      collision_box = True
+      customer_x = 500
+      new_part = False
+
+    print(customer_x)
+
     #bringing costumers into the middle of the screen
     if collision_box == True:
       if customer_x < 230:
         customer_x_velocity = customer_x_velocity * 0
+      elif customer_x == 500:
+        customer_x_velocity = -5
       #print("colliding")
       #print(customer_x_velocity)
       customer_x = customer_x + customer_x_velocity
 
     elif collision_box == False:
-      if customer_x < 230:
-        customer_x_velocity = customer_x_velocity - 1
+      #if customer_x < 230:
+      customer_x_velocity = -5
       customer_x = customer_x + customer_x_velocity
 
     #functions with the parts
     if random_part == 0:
       gpu_required = True
-      print("gpu is true")
+      #print("gpu is true")
     else:
       gpu_required == False
    
     if random_part == 1:
       cpu_required = True
-      print("cpu is true")
+      #print("cpu is true")
     else:
       cpu_required == False
 
     if random_part == 2:
       pc_cooler_required = True
-      print("fans are true")
+      #print("fans are true")
     else:
       pc_cooler_required == False
    
     if random_part == 3:
       power_required = True
-      print("power supply is true")
+      #print("power supply is true")
     else:
       power_required == False
 
     if random_part == 4:
       ram_required = True
-      print("ram is true")
+      #print("ram is true")
     else:
       ram_required == False
 
     if random_part == 5:
       gpu_required = True
-      print("gpu is true")
+      #print("gpu is true")
     else:
       gpu_required == False
    
     if random_part == 6:
       cpu_required = True
-      print("cpu is true")
+      #print("cpu is true")
     else:
       cpu_required == False
 
     if random_part == 7:
       pc_cooler_required = True
-      print("fans are true")
+      #print("fans are true")
     else:
       pc_cooler_required == False
    
     if random_part == 8:
       power_required = True
-      print("power supply is true")
+      #print("power supply is true")
     else:
       power_required == False
 
     if random_part == 9:
       ram_required = True
-      print("ram is true")
+      #print("ram is true")
     else:
       ram_required == False
 
     if random_part == 10:
       gpu_required = True
-      print("gpu is true")
+      #print("gpu is true")
     else:
       gpu_required == False
    
     if random_part == 11:
       cpu_required = True
-      print("cpu is true")
+      #print("cpu is true")
     else:
       cpu_required == False
 
     if random_part == 12:
       pc_cooler_required = True
-      print("fans are true")
+      #print("fans are true")
     else:
       pc_cooler_required == False
    
     if random_part == 13:
       power_required = True
-      print("power supply is true")
+      #print("power supply is true")
     else:
       power_required == False
 
     if random_part == 14:
       ram_required = True
-      print("ram is true")
+      #print("ram is true")
     else:
       ram_required == False
 
@@ -276,10 +306,9 @@ while not done:
     pygame.draw.rect(screen, GREEN, (15,340,110,110))
 
     if 15 + 110 > player_pos[0] > 15 and 340 + 110 > player_pos[1] > 340:
-      pygame.draw.rect(screen, Dark_Green, (15,340,110,110))
+      pygame.draw.rect(screen, dark_green, (15,340,110,110))
       if player_click[0] == True:
         gpu_selected = True
-        print(gpu_selected)
     else:
       pygame.draw.rect(screen, GREEN, (15,340,110,110))
 
@@ -292,10 +321,9 @@ while not done:
     pygame.draw.rect(screen, GREEN, (150,340,110,110))
 
     if 150 + 110 > player_pos[0] > 150 and 340 + 110 > player_pos[1] > 340:
-      pygame.draw.rect(screen, Dark_Green, (150,340,110,110))
+      pygame.draw.rect(screen, dark_green, (150,340,110,110))
       if player_click[0] == True:
         cpu_selected = True
-        print(cpu_selected)
     else:
       pygame.draw.rect(screen, GREEN, (150,340,110,110))
 
@@ -307,10 +335,9 @@ while not done:
     pygame.draw.rect(screen, GREEN, (285,340,110,110))
 
     if 285 + 110 > player_pos[0] > 285 and 340 + 110 > player_pos[1] > 340:
-      pygame.draw.rect(screen, Dark_Green, (285,340,110,110))
+      pygame.draw.rect(screen, dark_green, (285,340,110,110))
       if player_click[0] == True:
         pc_cooler_selected = True
-        print(pc_cooler_selected)
     else:
       pygame.draw.rect(screen, GREEN, (285,340,110,110))
 
@@ -322,10 +349,9 @@ while not done:
     pygame.draw.rect(screen, GREEN, (420,340,110,110))
 
     if 420 + 110 > player_pos[0] > 420 and 340 + 110 > player_pos[1] > 340:
-      pygame.draw.rect(screen, Dark_Green, (420,340,110,110))
+      pygame.draw.rect(screen, dark_green, (420,340,110,110))
       if player_click[0] == True:
         power_selected = True
-        print(power_selected)
     else:
       pygame.draw.rect(screen, GREEN, (420,340,110,110))
 
@@ -340,10 +366,9 @@ while not done:
     pygame.draw.rect(screen, GREEN, (555,340,110,110))
 
     if 555 + 110 > player_pos[0] > 555 and 340 + 110 > player_pos[1] > 340:
-      pygame.draw.rect(screen, Dark_Green, (555,340,110,110))
+      pygame.draw.rect(screen, dark_green, (555,340,110,110))
       if player_click[0] == True:
         ram_selected = True
-        print(ram_selected)
     else:
       pygame.draw.rect(screen, GREEN, (555,340,110,110))
 
@@ -353,6 +378,15 @@ while not done:
 
     #importing hand image
     screen.blit(player_image, [player_x, player_y])
+
+    #determining if the player the player lost a live
+    if lives_lost == True:
+      player_lives = player_lives - 1
+      if player_lives == 0:
+        restart_game = True
+      lives_lost = False
+    
+    print(player_lives)
 
     #outputs gpu text requirements to screen
     if customer_x_velocity == 0 and gpu_required == True and random_part == 0:
@@ -364,10 +398,10 @@ while not done:
     
     #possible events to take place with getting gpu as the option
     if gpu_required == True and gpu_selected == True:
-
       screen.blit(customer_correct, [-20,-80])
-      correct_counter = correct_counter + 1
       collision_box = False
+      if customer_x < 0:
+        new_part = True
 
     #cpu
     elif gpu_required == True and 150 + 110 > player_pos[0] > 150 and 340 + 110 > player_pos[1] > 340:
@@ -376,10 +410,13 @@ while not done:
     
     if gpu_required == True and cpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if gpu_required == True and gpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #fans
     elif gpu_required == True and 285 + 110 > player_pos[0] > 285 and 340 + 110 > player_pos[1] > 340:
@@ -388,10 +425,13 @@ while not done:
     
     if gpu_required == True and pc_cooler_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if gpu_required == True and gpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #power supply
     elif gpu_required == True and 420 + 110 > player_pos[0] > 420 and 340 + 110 > player_pos[1] > 340:
@@ -400,10 +440,13 @@ while not done:
       
     if gpu_required == True and power_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if gpu_required == True and gpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #ram
     elif gpu_required == True and 555 + 110 > player_pos[0] > 555 and 340 + 110 > player_pos[1] > 340:
@@ -412,11 +455,13 @@ while not done:
     
     if gpu_required == True and ram_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if gpu_required == True and gpu_selected == True:
-        print("gpu all true")
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #outputs cpu text requirements to screen
     if customer_x_velocity == 0 and cpu_required == True and random_part == 1:
@@ -428,10 +473,10 @@ while not done:
 
     #possible events to take place with getting cpu as the option
     if cpu_required == True and cpu_selected == True:
-      print("cpu all true")
       screen.blit(customer_correct, [-20,-80])
-      correct_counter = correct_counter + 1
       collision_box = False
+      if customer_x < 0:
+        new_part = True
     
     #gpu
     elif cpu_required == True and 15 + 110 > player_pos[0] > 15 and 340 + 110 > player_pos[1] > 340:
@@ -440,10 +485,13 @@ while not done:
     
     if cpu_required == True and gpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if cpu_required == True and cpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #fans
     elif cpu_required == True and 285 + 110 > player_pos[0] > 285 and 340 + 110 > player_pos[1] > 340:
@@ -452,10 +500,13 @@ while not done:
       
     if cpu_required == True and pc_cooler_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if cpu_required == True and cpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #power supply
     elif cpu_required == True and 420 + 110 > player_pos[0] > 420 and 340 + 110 > player_pos[1] > 340:
@@ -464,10 +515,13 @@ while not done:
     
     if cpu_required == True and power_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if cpu_required == True and cpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #ram
     elif cpu_required == True and 555 + 110 > player_pos[0] > 555 and 340 + 110 > player_pos[1] > 340:
@@ -476,10 +530,13 @@ while not done:
     
     if cpu_required == True and ram_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if cpu_required == True and cpu_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #outputs pc cooler text requirements to screen
     if customer_x_velocity == 0 and pc_cooler_required == True and random_part == 2:
@@ -492,8 +549,9 @@ while not done:
     #possible events to take place with getting fans as the option
     if pc_cooler_required == True and pc_cooler_selected == True:
       screen.blit(customer_correct, [-20,-80])
-      correct_counter = correct_counter + 1
       collision_box = False
+      if customer_x < 0:
+        new_part = True
     
     #gpu
     elif pc_cooler_required == True and 15 + 110 > player_pos[0] > 15 and 340 + 110 > player_pos[1] > 340:
@@ -502,10 +560,13 @@ while not done:
        
     if pc_cooler_required == True and gpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if pc_cooler_required == True and pc_cooler_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #cpu
     elif pc_cooler_required == True and 150 + 110 > player_pos[0] > 150 and 340 + 110 > player_pos[1] > 340:
@@ -514,10 +575,13 @@ while not done:
     
     if pc_cooler_required == True and cpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if pc_cooler_required == True and pc_cooler_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #power supply
     elif pc_cooler_required == True and 420 + 110 > player_pos[0] > 420 and 340 + 110 > player_pos[1] > 340:
@@ -526,10 +590,13 @@ while not done:
     
     if pc_cooler_required == True and power_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if pc_cooler_required == True and pc_cooler_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #ram
     elif pc_cooler_required == True and 555 + 110 > player_pos[0] > 555 and 340 + 110 > player_pos[1] > 340:
@@ -538,10 +605,13 @@ while not done:
     
     if pc_cooler_required == True and ram_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if pc_cooler_required == True and pc_cooler_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #outputs power supply text requirements to screen
     if customer_x_velocity == 0 and power_required == True and random_part == 3:
@@ -554,8 +624,9 @@ while not done:
     #possible events to take place with getting power supply as the option
     if power_required == True and power_selected == True:
       screen.blit(customer_correct, [-20,-80])
-      correct_counter = correct_counter + 1
       collision_box = False
+      if customer_x < 0:
+        new_part = True
     
     #gpu
     elif power_required == True and 15 + 110 > player_pos[0] > 15 and 340 + 110 > player_pos[1] > 340:
@@ -564,10 +635,13 @@ while not done:
        
     if power_required == True and gpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if power_required == True and power_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #cpu
     elif power_required == True and 150 + 110 > player_pos[0] > 150 and 340 + 110 > player_pos[1] > 340:
@@ -576,10 +650,13 @@ while not done:
     
     if power_required == True and cpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if power_required == True and power_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #fans
     elif power_required == True and 285 + 110 > player_pos[0] > 285 and 340 + 110 > player_pos[1] > 340:
@@ -588,10 +665,13 @@ while not done:
       
     if power_required == True and pc_cooler_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if power_required == True and power_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #ram
     elif power_required == True and 555 + 110 > player_pos[0] > 555 and 340 + 110 > player_pos[1] > 340:
@@ -600,10 +680,13 @@ while not done:
     
     if power_required == True and ram_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if power_required == True and power_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #outputs ram text requirements to screen
     if customer_x_velocity == 0 and ram_required == True and random_part == 4:
@@ -616,8 +699,9 @@ while not done:
     #possible events to take place with getting ram as the option
     if ram_required == True and ram_selected == True:
       screen.blit(customer_correct, [-20,-80])
-      correct_counter = correct_counter + 1
       collision_box = False
+      if customer_x < 0:
+        new_part = True
     
     #gpu
     elif ram_required == True and 15 + 110 > player_pos[0] > 15 and 340 + 110 > player_pos[1] > 340:
@@ -626,10 +710,13 @@ while not done:
        
     if ram_required == True and gpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if ram_required == True and ram_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #cpu
     elif ram_required == True and 150 + 110 > player_pos[0] > 150 and 340 + 110 > player_pos[1] > 340:
@@ -638,10 +725,13 @@ while not done:
     
     if ram_required == True and cpu_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if ram_required == True and ram_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
     
     #fans
     elif ram_required == True and 285 + 110 > player_pos[0] > 285 and 340 + 110 > player_pos[1] > 340:
@@ -650,10 +740,13 @@ while not done:
     
     if ram_required == True and pc_cooler_clicked == True:
       screen.blit(customer_false, [-20,-80])
+      lives_lost = True
+
       if ram_required == True and ram_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
+        if customer_x < 0:
+          new_part = True
 
     #power supply
     elif ram_required == True and 420 + 110 > player_pos[0] > 420 and 340 + 110 > player_pos[1] > 340:
@@ -662,19 +755,60 @@ while not done:
       
     if ram_required == True and power_clicked == True:
       screen.blit(customer_false, [-20,-80])
-      player_lives = player_lives - 1
+      lives_lost = True
+      
       if ram_required == True and ram_selected == True:
         screen.blit(customer_correct, [-20,-80])
-        correct_counter = correct_counter + 1
         collision_box = False
-        
+        if customer_x < 0:
+          new_part = True
+
+    print(correct_counter)
+
+    #setting up and outputting the score of the player
+    '''score_text = text_font.render("Score:", True, BLACK)
+    score_number = text_font.render(correct_counter, True, BLACK)
+
+    screen.blit(score_text, [0,0])
+    screen.blit(score_number, [0,0])'''
+
+    #determines what happens when the player has to restart the game
+    if restart_game == True:
+      #game over background
+      pygame.draw.rect(screen, BLACK, (0,0,500,500))
+
+      #game over title and text
+      title_font = pygame.font.SysFont("Roboto", 100, False, False)
+      gameover_title = title_font.render("Game Over", True, RED)
+      gameover_text = text_font.render("You got too many wrong and have been fired!", True, RED)
+      gameover_text_2 = text_font.render("Click retry to try for a better score!", True, RED)
+
+      #outputting game over text to screen
+      screen.blit(gameover_title, [0,0])
+      screen.blit(gameover_text, [0,0])
+      screen.blit(gameover_text_2, [0,0])
+
+      #retry button
+      pygame.draw.rect(screen, RED, (250,190,200,80))
+
+      if 250 + 200 > player_pos[0] > 250 and 190 + 80 > player_pos[1] > 100:
+        pygame.draw.rect(screen, dark_red, (250,190,200,80))
+        if player_click[0] == True:
+          restart_game = False
+          customer_correct = 0
+          player_lives = 3
+      else:
+        pygame.draw.rect(screen, RED, (250,190,200,80))
+
+      retry_button_text = text_font.render("Retry", True, BLACK)
+      screen.blit(retry_button_text, [315, 210])
+
     #setting up the start menu and various buttons on it
     if start_menu == True:
       #background
       pygame.draw.rect(screen, WHITE, (0,0,700,500))
 
       #title
-      title_font = pygame.font.SysFont("Roboto", 100, False, False)
       title_text = title_font.render("PC Part Picker", True, BLACK)
 
       screen.blit(title_text, [110, 0])
@@ -690,7 +824,7 @@ while not done:
       pygame.draw.rect(screen, GREEN, (250,150,200,80))
 
       if 250 + 200 > player_pos[0] > 250 and 150 + 80 > player_pos[1] > 100:
-        pygame.draw.rect(screen, Dark_Green, (250,150,200,80))
+        pygame.draw.rect(screen, dark_green, (250,150,200,80))
         if player_click[0] == True:
           start_menu = False
       else:
