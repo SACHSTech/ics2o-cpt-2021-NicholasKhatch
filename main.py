@@ -113,7 +113,7 @@ correct_counter = -100
 part_correct = False
 
 #keeping track of player lives
-player_lives = 3
+player_lives = 1
 lives_lost = False
 
 #toggle if the player has to restart the game
@@ -398,6 +398,8 @@ while not done:
         if player_lives == 0:
           restart_game = True
 
+    #print(player_lives)
+
     #outputs gpu text requirements to screen
     if customer_x_velocity == 0 and gpu_required == True and random_part == 0:
       screen.blit(gpu_text_1, [-20,-80])
@@ -637,7 +639,7 @@ while not done:
         collision_box = False
         if customer_x < 0:
           new_part = True
-    
+
     #cpu
     elif power_required == True and 150 + 110 > player_pos[0] > 150 and 340 + 110 > player_pos[1] > 340:
       if player_click[0] == True:
@@ -758,11 +760,11 @@ while not done:
     screen.blit(score_number, [120,1])
 
     #setting up and outputting the lives of a player
-    lives_text = text_font.render("Lives: ", True, BLACK)
-    lives_number = text_font.render(str(player_lives), True, BLACK)
+    #lives_text = text_font.render("Lives: ", True, BLACK)
+    #lives_number = text_font.render(str(player_lives), True, BLACK)
     
-    screen.blit(lives_text, [550, 0])
-    screen.blit(lives_number, [670, 1])
+    #screen.blit(lives_text, [550, 0])
+    #screen.blit(lives_number, [670, 1])
 
     #determines what happens when the player has to restart the game
     if restart_game == True:
@@ -773,7 +775,7 @@ while not done:
       title_font = pygame.font.SysFont("Roboto", 100, False, False)
       subtitle_font = pygame.font.SysFont("Roboto", 40, False, False)
       gameover_title = title_font.render("Game Over", True, RED)
-      gameover_text = subtitle_font.render("You got too many wrong and have been fired!", True, RED)
+      gameover_text = subtitle_font.render("You got it wrong and have been fired!", True, RED)
       gameover_text_2 = subtitle_font.render("Click retry to try for a better score!", True, RED)
       gameover_text_3 = subtitle_font.render("Final Score: " + str(correct_counter), True, RED)
 
@@ -792,7 +794,8 @@ while not done:
           restart_game = False
           new_part = True
           correct_counter = -100
-          player_lives = 3
+          player_lives = 1
+          print(player_lives)
       else:
         pygame.draw.rect(screen, RED, (250,190,200,80))
 
