@@ -35,7 +35,7 @@ counter_image.set_colorkey(BLACK)
 player_image = pygame.image.load("silicone-male-arm.png").convert()
 player_image.set_colorkey(BLACK)
 
-customer_image = pygame.image.load("Image168www.png").convert()
+customer_image = pygame.image.load("customer image.png").convert()
 customer_image.set_colorkey(BLACK)
 
 #gpu text
